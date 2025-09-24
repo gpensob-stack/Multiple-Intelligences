@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Intelligences</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background similar to Tailwind's */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen text-white p-4 relative">
+    
+    <!-- Language Toggle Button -->
+    <button id="lang-toggle" class="absolute top-4 right-4 bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500">
+        Español
+    </button>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full transition-all duration-500 ease-in-out">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold mb-2 text-white" data-key="welcome_title">Welcome!</h1>
+            <p class="text-gray-400 mb-6" data-key="welcome_text">Enter the access word to continue.</p>
+        </div>
+        <div class="space-y-4">
+            <input type="password" id="password-input" placeholder="Enter the keyword" class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <button id="login-button" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500" data-key="access_button">
+                Access
+            </button>
+        </div>
+        <div id="error-message" class="mt-4 text-center text-red-400 hidden" data-key="error_message">
+            Incorrect keyword. Please try again.
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="container mx-auto px-4 py-8 hidden transition-all duration-500 ease-in-out">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4" data-key="main_title">Multiple Intelligences</h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto" data-key="main_description">Explore the incredible variety of skills and talents that make up human intelligence, according to Howard Gardner's theory.</p>
+        </header>
+
+        <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Linguistic Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://assets.sutori.com/user-uploads/image/773edd69-4b04-4bb3-b146-21b64aa8a920/570f309bc469a541838b777f438f9771.png" alt="Image of books and words" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="linguistic_title">Linguistic</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="linguistic_text">The ability to use language effectively, whether orally or in writing, to express oneself or to understand others. It is manifested in writers, poets, and public speakers.</p>
+                </div>
+            </div>
+
+            <!-- Logical-Mathematical Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://i.ytimg.com/vi/Z-3S0XTo1ZA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLArkbSfdMmMWUZmjC9_UPMI_Ri9oQ" alt="Image of formulas and numbers" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="logical_title">Logical-Mathematical</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="logical_text">The ability to reason logically, solve mathematical problems, and think abstractly. It is the intelligence of scientists, engineers, and programmers.</p>
+                </div>
+            </div>
+
+            <!-- Spatial Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://cadey.co/wp-content/uploads/2022/02/understaning-spatial-reasoning.jpg" alt="Image of a maze" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="spatial_title">Spatial</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="spatial_text">The ability to perceive the visual and spatial world accurately, and to transform those perceptions. It is common in architects, artists, and navigators.</p>
+                </div>
+            </div>
+            
+            <!-- Musical Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://www.mentalup.co/img/blog/what-is-musical-intelligence-activities-for-kids-3.jpg" alt="Image of musical notes" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="musical_title">Musical</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="musical_text">Sensitivity to rhythm, pitch, melody, and timbre. Those with this intelligence excel as musicians, composers, and singers.</p>
+                </div>
+            </div>
+            
+            <!-- Bodily-Kinesthetic Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQGItII2Zyt3BQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1723041069265?e=2147483647&v=beta&t=Oyvc-WNCJREpHoNEkjZJTnqpO5De8zz52o-yUVl5E8g" alt="Image of a person dancing" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="kinesthetic_title">Bodily-Kinesthetic</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="kinesthetic_text">The ability to use one's body skillfully and in a controlled manner. It is the intelligence of athletes, dancers, and craftspeople.</p>
+                </div>
+            </div>
+            
+            <!-- Intrapersonal Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://cdn.aicad.es/asset/img/3/inteligencia-intrapersonal-conocete-a-ti-mismo-100.jpeg" alt="Image of a person meditating" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="intrapersonal_title">Intrapersonal</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="intrapersonal_text">The ability to understand oneself, including feelings, goals, and motivations. It is manifested in philosophers, psychologists, and spiritual leaders.</p>
+                </div>
+            </div>
+
+            <!-- Interpersonal Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://lh7-us.googleusercontent.com/N5gvyq64C-9mLg3CjHuPpF6nt73btfL92eBHkVQW5XEXSY5PFW8ifABISJByXalMqua9sRfr74HgTc72PIT3cbkhjbOLy5YJsdByuVFMAf5p364YOyMZAnWPP7dQtbgeG0Jll-eVP96J6f2WKW5iQEc" alt="Image of people talking" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="interpersonal_title">Interpersonal</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="interpersonal_text">The ability to understand and interact effectively with other people. It is the intelligence of educators, salespeople, and leaders.</p>
+                </div>
+            </div>
+            
+            <!-- Naturalist Intelligence -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300">
+                <img src="https://www.wikihow.com/images/thumb/2/2d/Naturalistic-Intelligence-Step-1.jpg/v4-460px-Naturalistic-Intelligence-Step-1.jpg" alt="Image of a forest and animals" class="w-full h-48 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-2 text-white" data-key="naturalist_title">Naturalist</h2>
+                    <p class="text-gray-300 mb-4 flex-grow" data-key="naturalist_text">The ability to recognize and classify species in nature. It is the intelligence of biologists, botanists, and ecologists.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password-input');
+        const loginButton = document.getElementById('login-button');
+        const loginScreen = document.getElementById('login-screen');
+        const mainContent = document.getElementById('main-content');
+        const errorMessage = document.getElementById('error-message');
+        const langToggleBtn = document.getElementById('lang-toggle');
+
+        const translations = {
+            en: {
+                welcome_title: "Welcome!",
+                welcome_text: "Enter the access word to continue.",
+                access_button: "Access",
+                error_message: "Incorrect keyword. Please try again.",
+                main_title: "Multiple Intelligences",
+                main_description: "Explore the incredible variety of skills and talents that make up human intelligence, according to Howard Gardner's theory.",
+                linguistic_title: "Linguistic",
+                linguistic_text: "The ability to use language effectively, whether orally or in writing, to express oneself or to understand others. It is manifested in writers, poets, and public speakers.",
+                logical_title: "Logical-Mathematical",
+                logical_text: "The ability to reason logically, solve mathematical problems, and think abstractly. It is the intelligence of scientists, engineers, and programmers.",
+                spatial_title: "Spatial",
+                spatial_text: "The ability to perceive the visual and spatial world accurately, and to transform those perceptions. It is common in architects, artists, and navigators.",
+                musical_title: "Musical",
+                musical_text: "Sensitivity to rhythm, pitch, melody, and timbre. Those with this intelligence excel as musicians, composers, and singers.",
+                kinesthetic_title: "Bodily-Kinesthetic",
+                kinesthetic_text: "The ability to use one's body skillfully and in a controlled manner. It is the intelligence of athletes, dancers, and craftspeople.",
+                intrapersonal_title: "Intrapersonal",
+                intrapersonal_text: "The ability to understand oneself, including feelings, goals, and motivations. It is manifested in philosophers, psychologists, and spiritual leaders.",
+                interpersonal_title: "Interpersonal",
+                interpersonal_text: "The ability to understand and interact effectively with other people. It is the intelligence of educators, salespeople, and leaders.",
+                naturalist_title: "Naturalist",
+                naturalist_text: "The ability to recognize and classify species in nature. It is the intelligence of biologists, botanists, and ecologists.",
+            },
+            es: {
+                welcome_title: "¡Bienvenido!",
+                welcome_text: "Ingresa la palabra de acceso para continuar.",
+                access_button: "Acceder",
+                error_message: "Palabra clave incorrecta. Por favor, intenta de nuevo.",
+                main_title: "Inteligencias Múltiples",
+                main_description: "Explora la increíble variedad de habilidades y talentos que conforman la inteligencia humana, según la teoría de Howard Gardner.",
+                linguistic_title: "Lingüística",
+                linguistic_text: "La capacidad de usar el lenguaje de manera efectiva, ya sea de forma oral o escrita, para expresarse o para entender a los demás. Se manifiesta en escritores, poetas y oradores.",
+                logical_title: "Lógico-Matemática",
+                logical_text: "Habilidad para razonar lógicamente, resolver problemas matemáticos y pensar de manera abstracta. Es la inteligencia de científicos, ingenieros y programadores.",
+                spatial_title: "Espacial",
+                spatial_text: "Capacidad de percibir el mundo visual y espacial de forma precisa, y de transformar esas percepciones. Es común en arquitectos, artistas y navegantes.",
+                musical_title: "Musical",
+                musical_text: "Sensibilidad al ritmo, el tono, la melodía y el timbre. Aquellos con esta inteligencia sobresalen como músicos, compositores y cantantes.",
+                kinesthetic_title: "Corporal-Kinestésica",
+                kinesthetic_text: "Habilidad para usar el cuerpo de forma hábil y controlada. Es la inteligencia de deportistas, bailarines y artesanos.",
+                intrapersonal_title: "Intrapersonal",
+                intrapersonal_text: "La capacidad de entenderse a uno mismo, incluyendo sentimientos, metas y motivaciones. Se manifiesta en filósofos, psicólogos y líderes espirituales.",
+                interpersonal_title: "Interpersonal",
+                interpersonal_text: "Habilidad para comprender e interactuar eficazmente con otras personas. Es la inteligencia de educadores, vendedores y líderes.",
+                naturalist_title: "Naturalista",
+                naturalist_text: "Capacidad de reconocer y clasificar especies de la naturaleza. Es la inteligencia de biólogos, botánicos y ecologistas.",
+            }
+        };
+
+        let currentLang = 'en';
+
+        const updateContent = (lang) => {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            document.querySelector('input').placeholder = lang === 'en' ? 'Enter the keyword' : 'Ingresa la palabra clave';
+            langToggleBtn.textContent = lang === 'en' ? 'Español' : 'English';
+        };
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            updateContent(currentLang);
+        });
+
+        // Initialize content to English on load
+        updateContent('en');
+
+        loginButton.addEventListener('click', () => {
+            const password = passwordInput.value;
+            if (password.toLowerCase() === 'admin') {
+                loginScreen.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            } else {
+                errorMessage.classList.remove('hidden');
+                passwordInput.value = '';
+            }
+        });
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loginButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
