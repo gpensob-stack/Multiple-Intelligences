@@ -32,6 +32,7 @@
             <div class="flex justify-end mb-2">
                 <button id="lang-en" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">EN</button>
                 <button id="lang-es" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">ES</button>
+                <button id="lang-fr" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">FR</button>
             </div>
             <h2 id="login-title" class="text-2xl font-bold text-blue-300 mb-4">Login</h2>
             <form id="login-form" class="flex flex-col items-center">
@@ -50,6 +51,11 @@
 
     <!-- Main Content -->
     <div id="main-content" class="container mx-auto px-4 py-8 hidden transition-all duration-500 ease-in-out">
+        <div class="flex justify-end mb-4">
+            <button id="main-lang-en" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">EN</button>
+            <button id="main-lang-es" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">ES</button>
+            <button id="main-lang-fr" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">FR</button>
+        </div>
         <header class="text-center mb-12">
             <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4" data-key="main_title">Multiple Intelligences</h1>
             <p class="text-lg text-gray-400 max-w-2xl mx-auto" data-key="main_description">Explore the incredible variety of skills and talents that make up human intelligence, according to Howard Gardner's theory.</p>
@@ -134,6 +140,10 @@
     <script>
 // Login seguro con usuario, contraseña y 2FA
 document.addEventListener('DOMContentLoaded', function() {
+    // Listeners para los botones de idioma principal (después del login)
+    document.getElementById('main-lang-en').addEventListener('click', function() { updateContent('en'); currentLang = 'en'; });
+    document.getElementById('main-lang-es').addEventListener('click', function() { updateContent('es'); currentLang = 'es'; });
+    document.getElementById('main-lang-fr').addEventListener('click', function() { updateContent('fr'); currentLang = 'fr'; });
     const loginTab = document.getElementById('login-tab');
     const loginForm = document.getElementById('login-form');
     const loginUsername = document.getElementById('login-username');
@@ -179,6 +189,17 @@ document.addEventListener('DOMContentLoaded', function() {
             twofa: 'Ingresa el código 2FA',
             twofaBtn: 'Verificar',
             twofaError: 'Código 2FA incorrecto.'
+        },
+        fr: {
+            login: 'Connexion',
+            username: 'Nom d’utilisateur',
+            password: 'Mot de passe',
+            loginBtn: 'Connexion',
+            error: 'Nom d’utilisateur ou mot de passe incorrect.',
+            blocked: 'Trop de tentatives échouées. Réessayez dans 5 minutes.',
+            twofa: 'Entrez le code 2FA',
+            twofaBtn: 'Vérifier',
+            twofaError: 'Code 2FA incorrect.'
         }
     };
 
@@ -194,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     langEn.addEventListener('click', function() { setLang('en'); });
     langEs.addEventListener('click', function() { setLang('es'); });
+    document.getElementById('lang-fr').addEventListener('click', function() { setLang('fr'); });
     setLang('en');
 
     function isBlocked() {
@@ -305,6 +327,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 interpersonal_text: "Habilidad para comprender e interactuar eficazmente con otras personas. Es la inteligencia de educadores, vendedores y líderes.",
                 naturalist_title: "Naturalista",
                 naturalist_text: "Capacidad de reconocer y clasificar especies de la naturaleza. Es la inteligencia de biólogos, botánicos y ecologistas.",
+            },
+            fr: {
+                welcome_title: "Bienvenue !",
+                welcome_text: "Entrez le mot d'accès pour continuer.",
+                access_button: "Accéder",
+                error_message: "Mot-clé incorrect. Veuillez réessayer.",
+                main_title: "Intelligences Multiples",
+                main_description: "Découvrez la variété incroyable de compétences et de talents qui composent l'intelligence humaine, selon la théorie de Howard Gardner.",
+                linguistic_title: "Linguistique",
+                linguistic_text: "La capacité à utiliser efficacement le langage, oralement ou par écrit, pour s'exprimer ou comprendre les autres. Elle se manifeste chez les écrivains, poètes et orateurs.",
+                logical_title: "Logique-Mathématique",
+                logical_text: "La capacité à raisonner logiquement, résoudre des problèmes mathématiques et penser abstraitement. C'est l'intelligence des scientifiques, ingénieurs et programmeurs.",
+                spatial_title: "Spatiale",
+                spatial_text: "La capacité à percevoir le monde visuel et spatial avec précision, et à transformer ces perceptions. Elle est courante chez les architectes, artistes et navigateurs.",
+                musical_title: "Musicale",
+                musical_text: "Sensibilité au rythme, à la tonalité, à la mélodie et au timbre. Ceux qui possèdent cette intelligence excellent comme musiciens, compositeurs et chanteurs.",
+                kinesthetic_title: "Corporelle-Kinesthésique",
+                kinesthetic_text: "La capacité à utiliser son corps avec habileté et contrôle. C'est l'intelligence des athlètes, danseurs et artisans.",
+                intrapersonal_title: "Intrapersonnelle",
+                intrapersonal_text: "La capacité à se comprendre soi-même, y compris ses sentiments, objectifs et motivations. Elle se manifeste chez les philosophes, psychologues et leaders spirituels.",
+                interpersonal_title: "Interpersonnelle",
+                interpersonal_text: "La capacité à comprendre et interagir efficacement avec les autres. C'est l'intelligence des éducateurs, vendeurs et leaders.",
+                naturalist_title: "Naturaliste",
+                naturalist_text: "La capacité à reconnaître et classifier les espèces dans la nature. C'est l'intelligence des biologistes, botanistes et écologistes."
             }
         };
 
@@ -317,16 +363,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     element.textContent = translations[lang][key];
                 }
             });
-            document.querySelector('input').placeholder = lang === 'en' ? 'Enter the keyword' : 'Ingresa la palabra clave';
-            langToggleBtn.textContent = lang === 'en' ? 'Español' : 'English';
+            // Actualiza el placeholder del input de acceso si existe
+            const keywordInput = document.querySelector('input');
+            if (keywordInput) {
+                if (lang === 'en') keywordInput.placeholder = 'Enter the keyword';
+                else if (lang === 'es') keywordInput.placeholder = 'Ingresa la palabra clave';
+                else if (lang === 'fr') keywordInput.placeholder = 'Entrez le mot-clé';
+            }
+            if (langToggleBtn) {
+                if (lang === 'en') langToggleBtn.textContent = 'Español';
+                else if (lang === 'es') langToggleBtn.textContent = 'English';
+                else if (lang === 'fr') langToggleBtn.textContent = 'Anglais';
+            }
         };
 
         langToggleBtn.addEventListener('click', () => {
-            currentLang = currentLang === 'en' ? 'es' : 'en';
+            if (currentLang === 'en') currentLang = 'es';
+            else if (currentLang === 'es') currentLang = 'fr';
+            else currentLang = 'en';
             updateContent(currentLang);
         });
 
-        // Initialize content to English on load
+        // Botones de idioma en la parte principal
+    document.getElementById('main-lang-en').addEventListener('click', function() { updateContent('en'); currentLang = 'en'; });
+    document.getElementById('main-lang-es').addEventListener('click', function() { updateContent('es'); currentLang = 'es'; });
+    document.getElementById('main-lang-fr').addEventListener('click', function() { updateContent('fr'); currentLang = 'fr'; });
+
+        // Inicializa el contenido en inglés al cargar
         updateContent('en');
 
         loginButton.addEventListener('click', () => {
