@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+</html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,25 +26,25 @@
 </head>
 <body class="flex items-center justify-center min-h-screen text-white p-4 relative">
     
-    <!-- Language Toggle Button -->
-    <button id="lang-toggle" class="absolute top-4 right-4 bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500">
-        Español
-    </button>
-
-    <!-- Login Screen -->
-    <div id="login-screen" class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full transition-all duration-500 ease-in-out">
-        <div class="text-center">
-            <h1 class="text-3xl font-bold mb-2 text-white" data-key="welcome_title">Welcome!</h1>
-            <p class="text-gray-400 mb-6" data-key="welcome_text">Enter the access word to continue.</p>
-        </div>
-        <div class="space-y-4">
-            <input type="password" id="password-input" placeholder="Enter the keyword" class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <button id="login-button" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500" data-key="access_button">
-                Access
-            </button>
-        </div>
-        <div id="error-message" class="mt-4 text-center text-red-400 hidden" data-key="error_message">
-            Incorrect keyword. Please try again.
+    <!-- Login Tab Multilanguage -->
+    <div id="login-tab" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+        <div class="bg-gray-900 rounded-3xl shadow-2xl p-8 max-w-md w-full text-center relative">
+            <div class="flex justify-end mb-2">
+                <button id="lang-en" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">EN</button>
+                <button id="lang-es" class="px-3 py-1 rounded-full bg-gray-700 text-white mx-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">ES</button>
+            </div>
+            <h2 id="login-title" class="text-2xl font-bold text-blue-300 mb-4">Login</h2>
+            <form id="login-form" class="flex flex-col items-center">
+                <input id="login-username" type="text" placeholder="Username" class="mb-4 px-4 py-2 rounded-full border-2 border-blue-900 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 w-full text-center" autocomplete="off" />
+                <input id="login-password" type="password" placeholder="Password" class="mb-4 px-4 py-2 rounded-full border-2 border-blue-900 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 w-full text-center" autocomplete="off" />
+                <button type="submit" id="login-btn" class="bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-800 transition-colors duration-300 transform hover:scale-105">Login</button>
+            </form>
+            <div id="login-2fa" class="mt-4 hidden">
+                <p id="login-2fa-label" class="mb-2 text-white">Enter 2FA code</p>
+                <input id="login-2fa-code" type="text" placeholder="2FA Code" class="mb-4 px-4 py-2 rounded-full border-2 border-blue-900 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 w-full text-center" autocomplete="off" />
+                <button id="login-2fa-btn" class="bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-blue-800 transition-colors duration-300 transform hover:scale-105">Verify</button>
+            </div>
+            <div id="login-error" class="text-blue-300 mt-4 hidden"></div>
         </div>
     </div>
 
@@ -125,6 +132,124 @@
     </div>
 
     <script>
+// Login seguro con usuario, contraseña y 2FA
+document.addEventListener('DOMContentLoaded', function() {
+    const loginTab = document.getElementById('login-tab');
+    const loginForm = document.getElementById('login-form');
+    const loginUsername = document.getElementById('login-username');
+    const loginPassword = document.getElementById('login-password');
+    const loginBtn = document.getElementById('login-btn');
+    const loginError = document.getElementById('login-error');
+    const login2fa = document.getElementById('login-2fa');
+    const login2faCode = document.getElementById('login-2fa-code');
+    const login2faBtn = document.getElementById('login-2fa-btn');
+    const loginTitle = document.getElementById('login-title');
+    const login2faLabel = document.getElementById('login-2fa-label');
+    const langEn = document.getElementById('lang-en');
+    const langEs = document.getElementById('lang-es');
+
+    let loginAttempts = 0;
+    let loginBlockedUntil = null;
+    let currentLang = 'en';
+    let generatedCode = '';
+
+    // Usuario y contraseña fuertes (puedes cambiar por consulta a base de datos)
+    const strongUser = 'SuperUser2025!';
+    const strongPass = 'X9$gT!pLw@7zQ#rS';
+
+    const translations = {
+        en: {
+            login: 'Login',
+            username: 'Username',
+            password: 'Password',
+            loginBtn: 'Login',
+            error: 'Invalid username or password.',
+            blocked: 'Too many failed attempts. Try again in 5 minutes.',
+            twofa: 'Enter 2FA code',
+            twofaBtn: 'Verify',
+            twofaError: 'Invalid 2FA code.'
+        },
+        es: {
+            login: 'Iniciar sesión',
+            username: 'Usuario',
+            password: 'Contraseña',
+            loginBtn: 'Entrar',
+            error: 'Usuario o contraseña incorrectos.',
+            blocked: 'Demasiados intentos fallidos. Intenta en 5 minutos.',
+            twofa: 'Ingresa el código 2FA',
+            twofaBtn: 'Verificar',
+            twofaError: 'Código 2FA incorrecto.'
+        }
+    };
+
+    function setLang(lang) {
+        currentLang = lang;
+        loginTitle.textContent = translations[lang].login;
+        loginUsername.placeholder = translations[lang].username;
+        loginPassword.placeholder = translations[lang].password;
+        loginBtn.textContent = translations[lang].loginBtn;
+        login2faLabel.textContent = translations[lang].twofa;
+        login2faBtn.textContent = translations[lang].twofaBtn;
+    }
+
+    langEn.addEventListener('click', function() { setLang('en'); });
+    langEs.addEventListener('click', function() { setLang('es'); });
+    setLang('en');
+
+    function isBlocked() {
+        if (!loginBlockedUntil) return false;
+        return Date.now() < loginBlockedUntil;
+    }
+
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (isBlocked()) {
+            loginError.textContent = translations[currentLang].blocked;
+            loginError.classList.remove('hidden');
+            return;
+        }
+        const user = loginUsername.value.trim();
+        const pass = loginPassword.value;
+        if (user === strongUser && pass === strongPass) {
+            // Generar código 2FA aleatorio
+            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+            window.sessionStorage.setItem('2fa_code', generatedCode);
+            alert(translations[currentLang].twofa + ': ' + generatedCode); // Solo para pruebas
+            login2fa.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+            loginError.classList.add('hidden');
+        } else {
+            loginAttempts++;
+            if (loginAttempts >= 3) {
+                loginBlockedUntil = Date.now() + 5 * 60 * 1000; // Bloquea 5 minutos
+                loginError.textContent = translations[currentLang].blocked;
+            } else {
+                loginError.textContent = translations[currentLang].error;
+            }
+            loginError.classList.remove('hidden');
+        }
+    });
+
+    login2faBtn.addEventListener('click', function() {
+        const code = login2faCode.value.trim();
+        const realCode = window.sessionStorage.getItem('2fa_code');
+        if (code === realCode) {
+            loginTab.style.display = 'none';
+            loginError.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+                // Mostrar el contenido principal
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) {
+                    mainContent.classList.remove('hidden');
+                }
+        } else {
+            loginError.textContent = translations[currentLang].twofaError;
+            loginError.classList.remove('hidden');
+        }
+    });
+    // Oculta el resto de la web hasta login
+    document.body.classList.add('overflow-hidden');
+});
         const passwordInput = document.getElementById('password-input');
         const loginButton = document.getElementById('login-button');
         const loginScreen = document.getElementById('login-screen');
